@@ -1,0 +1,14 @@
+FROM eclipse-temurin:latest
+EXPOSE 8000
+
+ENV APP_HOME=/core/
+ENV SPRING_PROFILES_ACTIVE=dev
+WORKDIR $APP_HOME
+COPY ./.mvn ./.mvn
+COPY ./mvnw ./
+COPY ./pom.xml ./
+RUN ./mvnw dependency:go-offline
+COPY ./entryPoint.sh ./
+COPY ./src ./src
+CMD ["sh" , "entryPoint.sh"]
+

@@ -1,0 +1,21 @@
+version: "3.8"
+networks:
+  spring:
+      name: spring
+
+services:
+  spring-security:
+    hostname: spring-security
+    container_name: spring-security
+    tty: true
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - spring
+
+    volumes:
+      - ./:/core/
+    build:
+      context: ./
+      dockerfile: src/main/docker/Dockerfile.dev
